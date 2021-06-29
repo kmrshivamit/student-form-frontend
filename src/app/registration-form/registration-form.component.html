@@ -1,0 +1,126 @@
+
+<div class="col-md-6 offset-md-3">
+    <h3> Create Student</h3>
+    <form #studentForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label>FirstName</label>
+            <input type="text" class="form-control" id="firstName "
+            [(ngModel)]="student.firstName" name="firstName" required="required" #firstName="ngModel" minlength="3">
+        
+        </div>
+        <div *ngIf="firstName.errors && (firstName.touched||firstName.dirty)">
+            <div [hidden]="!firstName.errors.required">First Name is required</div>
+    <div [hidden]="!firstName.errors.minlength"> first name must be at least 3 characters</div>
+        </div>
+        <div class="form-group">
+            <label>LastName</label>
+            <input type="text" class="form-control" id="lastName"
+            [(ngModel)]="student.lastName" name="lastName" required="required" #lastName="ngModel" minlength="3">
+        </div>
+        <div *ngIf="lastName.errors && (lastName.touched||lastName.dirty)">
+            <div [hidden]="!lastName.errors.required">Last Name is required</div>
+    <div [hidden]="!lastName.errors.minlength"> Last Name must be at least 3 characters</div></div>
+        <div class="form-group">
+            <label>Email Id</label>
+            <input type="text" class="form-control" id="emailId "
+            [(ngModel)]="student.emailId" name="emailId" required="required" #emailId="ngModel" 
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+        </div>
+        <div *ngIf="emailId.touched">
+            <p *ngIf="emailId.errors?.required">Email is a required field!</p>
+            <p *ngIf="emailId.errors?.pattern">This is not a valid Email!!!</p>
+          </div>
+        
+        <div class="form-group">
+            <label>Mobile No</label>
+            <input type="text" class="form-control" id="mobileNumber "
+            [(ngModel)]="student.mobileNumber" name="mobileNumber" required #mobileNumber="ngModel"
+            pattern="[0-9]{10}">
+        </div>
+       <div *ngIf="mobileNumber.touched">
+            <p *ngIf="mobileNumber.errors?.required">Phone Number is a required field!</p>
+            <p *ngIf="mobileNumber.errors?.pattern">This is not a valid Phone Number</p>
+          </div>
+        <div class="form-group">
+            <label>Date of Birth</label>
+            <input type="date" class="form-control" id="dateOfBirth"
+            [(ngModel)]="student.dateOfBirth" name="dateOfBirth" required>
+        </div>
+        <div class="form-group">
+            <label>Address</label>
+            <input type="text" class="form-control" id="address "
+            [(ngModel)]="student.address" name="address" required>
+        </div>
+        <div class="form-group">
+            <label>city</label>
+            <input type="text" class="form-control" id="city"
+            [(ngModel)]="student.city" name="city" required>
+        </div>
+        <div class="form-group">
+            <label>PIN Code</label>
+            <input type="text" class="form-control" id="pinCode"
+            [(ngModel)]="student.pinCode" name="pinCode" required>
+        </div>
+        <div class="form-group">
+            <label>State</label>
+            <input type="text" class="form-control" id="state"
+            [(ngModel)]="student.state" name="state" required>
+        </div>
+        <div class="form-group">
+            <label>Country</label>
+            <input type="text" class="form-control" id="country"
+            [(ngModel)]="student.country" name="country" required>
+        </div>
+
+        
+
+
+        <div class="form-group">
+            <label>Gender</label>
+            <div class="form-control">
+              <label class="radio-inline">
+                <input type="radio" name="gender" value="MALE" [(ngModel)]="student.gender">
+                Male
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="gender" value="FEMALE" [(ngModel)]="student.gender">
+                Female
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Qualification</label>
+            
+
+            <ul>
+                <li *ngFor="let qualification of qualifications">
+                    <input type="checkbox" value={{qualification.id}} (change)="onChangeQualification($event,qualification)">{{qualification.name}}
+                </li>
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <label>Hobbies</label>
+            
+
+            <ul>
+                <li *ngFor="let hobby of hobbies">
+                    <input type="checkbox" value={{hobby.id}} (change)="onChangeHobby($event,hobby)">{{hobby.name}}
+                </li>
+            </ul>
+        </div>
+
+        <div class="form-group">
+            <label>Courses Enrolled</label>
+            
+
+            <ul>
+                <li *ngFor="let course of courses">
+                    <input type="checkbox" value={{course.id}} (change)="onChangeCourse($event,course)">{{course.name}}
+                </li>
+            </ul>
+        </div>
+    
+        <button class="btn btn-success" type="submit" [disabled]="studentForm.invalid" > submit</button>
+        </form></div>
